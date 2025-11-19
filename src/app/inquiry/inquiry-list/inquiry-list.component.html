@@ -1,0 +1,88 @@
+<div class="inquiry-list-container">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>My Inquiries</h1>
+    <button mat-raised-button color="primary" (click)="onCreateNew()">
+      <mat-icon>add</mat-icon>
+      Create New Inquiry
+    </button>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading inquiries...</p>
+  </div>
+
+  <!-- Error State -->
+  <mat-card *ngIf="errorMessage && !isLoading" class="error-card">
+    <mat-card-content>
+      <p class="error-message">{{ errorMessage }}</p>
+      <button mat-button color="primary" (click)="onRetry()">Retry</button>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Inquiries Table -->
+  <mat-card *ngIf="!isLoading && !errorMessage" class="inquiries-card">
+    <mat-card-header>
+      <mat-card-title>Inquiry History</mat-card-title>
+      <mat-card-subtitle>{{ inquiries.length }} inquiries found</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="inquiries.length === 0" class="no-data">
+        <mat-icon>search_off</mat-icon>
+        <p>No inquiries found.</p>
+        <button mat-raised-button color="primary" (click)="onCreateNew()">
+          Create Your First Inquiry
+        </button>
+      </div>
+
+      <div *ngIf="inquiries.length > 0" class="table-container">
+        <table mat-table [dataSource]="inquiries" class="inquiries-table">
+          
+          <!-- Inquiry Number Column -->
+          <ng-container matColumnDef="inquiryNumber">
+            <th mat-header-cell *matHeaderCellDef>Inquiry Number</th>
+            <td mat-cell *matCellDef="let inquiry">{{ inquiry.inquiryNumber }}</td>
+          </ng-container>
+
+          <!-- Product Code Column -->
+          <ng-container matColumnDef="productCode">
+            <th mat-header-cell *matHeaderCellDef>Product Code</th>
+            <td mat-cell *matCellDef="let inquiry">{{ inquiry.productCode }}</td>
+          </ng-container>
+
+          <!-- Product Description Column -->
+          <ng-container matColumnDef="productDescription">
+            <th mat-header-cell *matHeaderCellDef>Product Description</th>
+            <td mat-cell *matCellDef="let inquiry">{{ inquiry.productDescription }}</td>
+          </ng-container>
+
+          <!-- Created Date Column -->
+          <ng-container matColumnDef="createdDate">
+            <th mat-header-cell *matHeaderCellDef>Created Date</th>
+            <td mat-cell *matCellDef="let inquiry">{{ inquiry.createdDate | date:'MM/dd/yyyy' }}</td>
+          </ng-container>
+
+          <!-- Valid To Column -->
+          <ng-container matColumnDef="validTo">
+            <th mat-header-cell *matHeaderCellDef>Valid Until</th>
+            <td mat-cell *matCellDef="let inquiry">{{ inquiry.validTo | date:'MM/dd/yyyy' }}</td>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let inquiry" class="amount-cell">
+              {{ inquiry.amount | currency:inquiry.currency }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+""

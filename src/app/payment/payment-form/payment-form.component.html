@@ -1,0 +1,112 @@
+<div class="payment-form-container">
+  <mat-card class="payment-form-card">
+    <mat-card-header>
+      <mat-card-title>Process Payment</mat-card-title>
+      <mat-card-subtitle>Submit a payment for an outstanding invoice</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="payment-form">
+        
+        <!-- Invoice Selection -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Select Invoice</mat-label>
+          <mat-select formControlName="invoiceId" [disabled]="isLoading">
+            <mat-option value="">-- Select an invoice --</mat-option>
+            <mat-option *ngFor="let invoice of unpaidInvoices" [value]="invoice.documentNumber">
+              {{ invoice.documentNumber }} - {{ invoice.customerName }} - {{ invoice.netValue | currency:invoice.currency:'symbol':'1.2-2' }}
+            </mat-option>
+          </mat-select>
+          @if (invoiceIdControl?.hasError('required') && invoiceIdControl?.touched) {
+            <mat-error>Please select an invoice</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Selected Invoice Details -->
+        @if (selectedInvoice) {
+          <div class="invoice-details">
+          <mat-card class="invoice-info-card">
+            <mat-card-content>
+              <h4>Invoice Details</h4>
+              <p><strong>Document Number:</strong> {{ selectedInvoice.documentNumber }}</p>
+              <p><strong>Customer:</strong> {{ selectedInvoice.customerName }}</p>
+              <p><strong>Net Value:</strong> {{ selectedInvoice.netValue | currency:selectedInvoice.currency:'symbol':'1.2-2' }}</p>
+              <p><strong>Billing Date:</strong> {{ selectedInvoice.billingDate | date:'shortDate' }}</p>
+              <p><strong>Material:</strong> {{ selectedInvoice.materialDescription }}</p>
+            </mat-card-content>
+          </mat-card>
+          </div>
+        }
+
+        <!-- Payment Amount -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Payment Amount</mat-label>
+          <input matInput 
+                 type="number" 
+                 formControlName="amount" 
+                 step="0.01" 
+                 min="0.01"
+                 [max]="selectedInvoice?.netValue || 999999"
+                 placeholder="0.00">
+          <span matPrefix>$&nbsp;</span>
+          @if (amountControl?.hasError('required') && amountControl?.touched) {
+            <mat-error>Payment amount is required</mat-error>
+          }
+          @if (amountControl?.hasError('min') && amountControl?.touched) {
+            <mat-error>Payment amount must be greater than 0</mat-error>
+          }
+          @if (amountControl?.hasError('max') && amountControl?.touched) {
+            <mat-error>Payment amount cannot exceed invoice balance of {{ selectedInvoice?.netValue | currency:selectedInvoice?.currency:'symbol':'1.2-2' }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Payment Method -->
+        <div class="payment-method-section">
+          <label class="payment-method-label">Payment Method</label>
+          <mat-radio-group formControlName="method" class="payment-method-group">
+            <mat-radio-button *ngFor="let method of paymentMethods" 
+                              [value]="method.value" 
+                              class="payment-method-option">
+              {{ method.label }}
+            </mat-radio-button>
+          </mat-radio-group>
+          @if (methodControl?.hasError('required') && methodControl?.touched) {
+            <mat-error>Please select a payment method</mat-error>
+          }
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button mat-raised-button 
+                  color="primary" 
+                  type="submit" 
+                  [disabled]="paymentForm.invalid || isLoading"
+                  class="submit-button">
+            @if (isLoading) {
+              <mat-spinner diameter="20" class="button-spinner"></mat-spinner>
+              <span>Processing...</span>
+            } @else {
+              <span>Submit Payment</span>
+            }
+          </button>
+          
+          <button mat-button 
+                  type="button" 
+                  (click)="resetForm()" 
+                  [disabled]="isLoading"
+                  class="reset-button">
+            Reset Form
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Loading Spinner for Initial Load -->
+  @if (isLoading && unpaidInvoices.length === 0) {
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading unpaid invoices...</p>
+    </div>
+  }
+</div>

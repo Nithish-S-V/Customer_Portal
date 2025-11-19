@@ -1,0 +1,116 @@
+<div class="credit-debit-list-container">
+  <!-- Loading Spinner -->
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+    <p>Loading credit/debit memos...</p>
+  </div>
+
+  <!-- Error Message -->
+  <mat-card *ngIf="errorMessage && !isLoading" class="error-card">
+    <mat-card-content>
+      <p class="error-message">{{ errorMessage }}</p>
+      <button mat-stroked-button color="warn" (click)="retryLoad()">Retry</button>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tabs for Credit and Debit Memos -->
+  <div *ngIf="!isLoading && !errorMessage">
+    <mat-tab-group>
+      <!-- Credit Notes Tab -->
+      <mat-tab label="Credit Notes">
+        <div class="table-container">
+          <table mat-table [dataSource]="creditMemos" class="mat-elevation-z2">
+            <!-- Document Number Column -->
+            <ng-container matColumnDef="documentNumber">
+              <th mat-header-cell *matHeaderCellDef>Document Number</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.documentNumber }}</td>
+            </ng-container>
+
+            <!-- Document Type Column -->
+            <ng-container matColumnDef="documentTypeText">
+              <th mat-header-cell *matHeaderCellDef>Type</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.documentTypeText }}</td>
+            </ng-container>
+
+            <!-- Billing Date Column -->
+            <ng-container matColumnDef="billingDate">
+              <th mat-header-cell *matHeaderCellDef>Billing Date</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.billingDate | date: 'MM/dd/yyyy' }}</td>
+            </ng-container>
+
+            <!-- Net Value Column -->
+            <ng-container matColumnDef="netValue">
+              <th mat-header-cell *matHeaderCellDef>Net Value</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.netValue | currency:memo.currency }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let memo">
+                <button mat-icon-button [routerLink]="['./detail', memo.documentNumber]" matTooltip="View Details">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <div *ngIf="creditMemos.data.length === 0" class="empty-state">
+            <p>No credit notes found.</p>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Debit Notes Tab -->
+      <mat-tab label="Debit Notes">
+        <div class="table-container">
+          <table mat-table [dataSource]="debitMemos" class="mat-elevation-z2">
+            <!-- Document Number Column -->
+            <ng-container matColumnDef="documentNumber">
+              <th mat-header-cell *matHeaderCellDef>Document Number</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.documentNumber }}</td>
+            </ng-container>
+
+            <!-- Document Type Column -->
+            <ng-container matColumnDef="documentTypeText">
+              <th mat-header-cell *matHeaderCellDef>Type</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.documentTypeText }}</td>
+            </ng-container>
+
+            <!-- Billing Date Column -->
+            <ng-container matColumnDef="billingDate">
+              <th mat-header-cell *matHeaderCellDef>Billing Date</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.billingDate | date: 'MM/dd/yyyy' }}</td>
+            </ng-container>
+
+            <!-- Net Value Column -->
+            <ng-container matColumnDef="netValue">
+              <th mat-header-cell *matHeaderCellDef>Net Value</th>
+              <td mat-cell *matCellDef="let memo">{{ memo.netValue | currency:memo.currency }}</td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let memo">
+                <button mat-icon-button [routerLink]="['./detail', memo.documentNumber]" matTooltip="View Details">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <div *ngIf="debitMemos.data.length === 0" class="empty-state">
+            <p>No debit notes found.</p>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

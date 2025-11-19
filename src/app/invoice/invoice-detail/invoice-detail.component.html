@@ -1,0 +1,117 @@
+<div class="invoice-detail-container">
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading invoice details...</p>
+  </div>
+
+  <!-- Error State -->
+  <mat-card *ngIf="errorMessage && !isLoading" class="error-card">
+    <mat-card-content>
+      <p class="error-message">{{ errorMessage }}</p>
+      <button mat-button color="primary" (click)="onRetry()">Retry</button>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Invoice Details -->
+  <div *ngIf="invoiceHeader && !isLoading && !errorMessage">
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button mat-button (click)="onBackToList()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to List
+      </button>
+      <button mat-raised-button color="primary" (click)="onViewForm()">
+        <mat-icon>picture_as_pdf</mat-icon>
+        View PDF
+      </button>
+    </div>
+
+    <!-- Invoice Header Card -->
+    <mat-card class="invoice-header-card">
+      <mat-card-header>
+        <mat-card-title>Invoice Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="invoice-header-grid">
+          <div class="header-item">
+            <label>Document Number:</label>
+            <span class="value">{{ invoiceHeader.documentNumber }}</span>
+          </div>
+          <div class="header-item">
+            <label>Item Number:</label>
+            <span class="value">{{ invoiceHeader.itemNumber }}</span>
+          </div>
+          <div class="header-item">
+            <label>Billing Date:</label>
+            <span class="value">{{ invoiceHeader.billingDate | date:'MM/dd/yyyy' }}</span>
+          </div>
+          <div class="header-item">
+            <label>Customer Name:</label>
+            <span class="value">{{ invoiceHeader.customerName }}</span>
+          </div>
+          <div class="header-item">
+            <label>Material Number:</label>
+            <span class="value">{{ invoiceHeader.materialNumber }}</span>
+          </div>
+          <div class="header-item">
+            <label>Material Description:</label>
+            <span class="value">{{ invoiceHeader.materialDescription }}</span>
+          </div>
+          <div class="header-item">
+            <label>Net Value:</label>
+            <span class="value amount">{{ invoiceHeader.netValue | currency:invoiceHeader.currency }}</span>
+          </div>
+          <div class="header-item">
+            <label>Currency:</label>
+            <span class="value">{{ invoiceHeader.currency }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Line Items Table -->
+    <mat-card class="line-items-card">
+      <mat-card-header>
+        <mat-card-title>Line Items</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="invoiceItems" class="line-items-table">
+          
+          <!-- Item Number Column -->
+          <ng-container matColumnDef="itemNumber">
+            <th mat-header-cell *matHeaderCellDef>Item #</th>
+            <td mat-cell *matCellDef="let item">{{ item.itemNumber }}</td>
+          </ng-container>
+
+          <!-- Material Number Column -->
+          <ng-container matColumnDef="materialNumber">
+            <th mat-header-cell *matHeaderCellDef>Material Number</th>
+            <td mat-cell *matCellDef="let item">{{ item.materialNumber }}</td>
+          </ng-container>
+
+          <!-- Material Description Column -->
+          <ng-container matColumnDef="materialDescription">
+            <th mat-header-cell *matHeaderCellDef>Material Description</th>
+            <td mat-cell *matCellDef="let item">{{ item.materialDescription }}</td>
+          </ng-container>
+
+          <!-- Net Value Column -->
+          <ng-container matColumnDef="netValue">
+            <th mat-header-cell *matHeaderCellDef>Net Value</th>
+            <td mat-cell *matCellDef="let item">{{ item.netValue | currency:item.currency }}</td>
+          </ng-container>
+
+          <!-- Currency Column -->
+          <ng-container matColumnDef="currency">
+            <th mat-header-cell *matHeaderCellDef>Currency</th>
+            <td mat-cell *matCellDef="let item">{{ item.currency }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

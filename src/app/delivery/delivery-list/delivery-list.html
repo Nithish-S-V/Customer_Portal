@@ -1,0 +1,81 @@
+<div class="delivery-list-container">
+  <div class="header-section">
+    <h2>Delivery Tracking</h2>
+    <button mat-icon-button (click)="refresh()" class="refresh-button" title="Refresh">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+  
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading deliveries...</p>
+  </div>
+
+  <!-- Error Message -->
+  <mat-card *ngIf="errorMessage && showRetry && !isLoading" class="error-card">
+    <mat-card-content>
+      <div class="error-content">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+      <button mat-button color="primary" (click)="onRetry()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="!isLoading && !showRetry" class="table-container">
+    <mat-table [dataSource]="deliveries" class="delivery-table">
+      
+      <!-- Delivery Number Column -->
+      <ng-container matColumnDef="deliveryNumber">
+        <mat-header-cell *matHeaderCellDef>Delivery Number</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.deliveryNumber }}</mat-cell>
+      </ng-container>
+
+      <!-- Sales Order Column -->
+      <ng-container matColumnDef="salesOrderReference">
+        <mat-header-cell *matHeaderCellDef>Sales Order</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.salesOrderReference }}</mat-cell>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="deliveryDate">
+        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.deliveryDate | date:'MM/dd/yyyy' }}</mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">
+          <span [class]="getStatusClass(delivery.status)">{{ delivery.status }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Tracking Number Column -->
+      <ng-container matColumnDef="trackingNumber">
+        <mat-header-cell *matHeaderCellDef>Tracking Number</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.trackingNumber }}</mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">
+          <button mat-button color="primary" (click)="onViewDetails(delivery.deliveryNumber)">
+            View Details
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <div *ngIf="deliveries.length === 0 && !showRetry" class="no-data">
+      <p>No deliveries found.</p>
+    </div>
+  </div>
+</div>

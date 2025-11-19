@@ -1,0 +1,85 @@
+.profile-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+.error-container {
+  margin: 20px 0;
+}
+
+.error-card {
+  background-color: #ffebee;
+  border-left: 4px solid #f44336;
+}
+
+.error-message {
+  color: #d32f2f;
+  margin: 0 0 16px 0;
+}
+
+.profile-form {
+  padding: 20px 0;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-field {
+  flex: 1;
+}
+
+.form-field.full-width {
+  width: 100%;
+}
+
+.card-actions {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-actions button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 10px;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+}

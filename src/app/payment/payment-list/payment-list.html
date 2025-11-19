@@ -1,0 +1,72 @@
+<div class="payment-list-container">
+  <h2>Payment History</h2>
+  
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading payments...</p>
+  </div>
+
+  <!-- Error Message -->
+  <mat-card *ngIf="errorMessage && showRetry && !isLoading" class="error-card">
+    <mat-card-content>
+      <div class="error-content">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+      <button mat-button color="primary" (click)="onRetry()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="!isLoading && !showRetry" class="table-container">
+    <mat-table [dataSource]="payments" class="payment-table">
+      
+      <!-- Payment Number Column -->
+      <ng-container matColumnDef="paymentNumber">
+        <mat-header-cell *matHeaderCellDef>Payment Number</mat-header-cell>
+        <mat-cell *matCellDef="let payment">{{ payment.paymentNumber }}</mat-cell>
+      </ng-container>
+
+      <!-- Invoice Reference Column -->
+      <ng-container matColumnDef="invoiceReference">
+        <mat-header-cell *matHeaderCellDef>Invoice Reference</mat-header-cell>
+        <mat-cell *matCellDef="let payment">{{ payment.invoiceReference }}</mat-cell>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+        <mat-cell *matCellDef="let payment">{{ payment.amount | currency:payment.currency }}</mat-cell>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="paymentDate">
+        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+        <mat-cell *matCellDef="let payment">{{ payment.paymentDate | date:'MM/dd/yyyy' }}</mat-cell>
+      </ng-container>
+
+      <!-- Method Column -->
+      <ng-container matColumnDef="paymentMethod">
+        <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
+        <mat-cell *matCellDef="let payment">{{ payment.paymentMethod | titlecase }}</mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let payment">
+          <span [class]="getStatusClass(payment.status)">{{ payment.status }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <div *ngIf="payments.length === 0 && !showRetry" class="no-data">
+      <p>No payments found.</p>
+    </div>
+  </div>
+</div>

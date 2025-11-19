@@ -1,0 +1,136 @@
+/* Shared Loading States CSS */
+
+/* Loading Container - Centered spinner with overlay */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+}
+
+/* Loading Overlay - Semi-transparent background */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+/* Loading text styling */
+.loading-container p,
+.loading-overlay p {
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Button spinner styling */
+.button-spinner {
+  margin-right: 8px;
+}
+
+/* Spinner container for tables and lists */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  padding: 40px;
+}
+
+.spinner-container p {
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Full page loading overlay */
+.full-page-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+}
+
+/* Card loading overlay */
+.card-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 100;
+  border-radius: inherit;
+}
+
+/* Relative positioning for cards with overlays */
+.loading-relative {
+  position: relative;
+}
+
+/* Small spinner for inline loading */
+.inline-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Loading state for forms */
+.form-loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Loading state for buttons */
+.loading-button {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading-button mat-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Responsive loading containers */
+@media (max-width: 768px) {
+  .loading-container,
+  .spinner-container {
+    min-height: 200px;
+    padding: 20px;
+  }
+  
+  .loading-container p,
+  .loading-overlay p,
+  .spinner-container p {
+    font-size: 12px;
+  }
+}

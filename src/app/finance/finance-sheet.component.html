@@ -1,0 +1,29 @@
+<div class="finance-sheet-container">
+  <h1>Finance Sheet</h1>
+  
+  <mat-tab-group class="finance-tabs" color="primary" (selectedTabChange)="onTabChange($event)">
+    <mat-tab label="Invoice">
+      <div class="tab-content">
+        <app-invoice-list #invoiceList></app-invoice-list>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="Credit/Debit">
+      <div class="tab-content">
+        <app-credit-debit-list #creditDebitList></app-credit-debit-list>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="Aging">
+      <div class="tab-content">
+        <app-aging #aging></app-aging>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="Overall Sales">
+      <div class="tab-content">
+        <app-overall-sales #overallSales></app-overall-sales>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

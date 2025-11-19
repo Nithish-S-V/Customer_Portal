@@ -1,0 +1,157 @@
+<div class="credit-debit-container">
+  <div class="header">
+    <h2>Credit & Debit Notes</h2>
+    <button 
+      *ngIf="isAdmin" 
+      mat-raised-button 
+      color="primary" 
+      (click)="onRequestCreditDebit()"
+      class="request-button">
+      <mat-icon>add</mat-icon>
+      Request Credit/Debit
+    </button>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading credit/debit notes...</p>
+  </div>
+
+  <!-- Error Message -->
+  <mat-card *ngIf="errorMessage && !isLoading" class="error-card">
+    <mat-card-content>
+      <div class="error-content">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+      <button mat-button color="primary" (click)="onRetry()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Credit/Debit Tabs -->
+  <mat-tab-group *ngIf="!isLoading && !errorMessage" (selectedTabChange)="onTabChange($event.index)">
+    <!-- Credit Notes Tab -->
+    <mat-tab label="Credit Notes">
+      <div class="tab-content">
+        <mat-table [dataSource]="creditNotes" class="credit-debit-table">
+          <!-- Document Number Column -->
+          <ng-container matColumnDef="documentNumber">
+            <mat-header-cell *matHeaderCellDef>Document Number</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.documentNumber }}</mat-cell>
+          </ng-container>
+
+          <!-- Invoice Reference Column -->
+          <ng-container matColumnDef="invoiceReference">
+            <mat-header-cell *matHeaderCellDef>Invoice Reference</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.invoiceReference }}</mat-cell>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.amount | currency:note.currency:'symbol':'1.2-2' }}</mat-cell>
+          </ng-container>
+
+          <!-- Reason Column -->
+          <ng-container matColumnDef="reason">
+            <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.reason }}</mat-cell>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.date | date:'MM/dd/yyyy' }}</mat-cell>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+            <mat-cell *matCellDef="let note">
+              <button 
+                mat-icon-button 
+                color="primary" 
+                (click)="onViewDetails(note.documentNumber)"
+                matTooltip="View Details">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <!-- No Credit Notes Message -->
+        <div *ngIf="creditNotes.length === 0" class="no-data-message">
+          <mat-icon>description</mat-icon>
+          <p>No credit notes found</p>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Debit Notes Tab -->
+    <mat-tab label="Debit Notes">
+      <div class="tab-content">
+        <mat-table [dataSource]="debitNotes" class="credit-debit-table">
+          <!-- Document Number Column -->
+          <ng-container matColumnDef="documentNumber">
+            <mat-header-cell *matHeaderCellDef>Document Number</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.documentNumber }}</mat-cell>
+          </ng-container>
+
+          <!-- Invoice Reference Column -->
+          <ng-container matColumnDef="invoiceReference">
+            <mat-header-cell *matHeaderCellDef>Invoice Reference</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.invoiceReference }}</mat-cell>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.amount | currency:note.currency:'symbol':'1.2-2' }}</mat-cell>
+          </ng-container>
+
+          <!-- Reason Column -->
+          <ng-container matColumnDef="reason">
+            <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.reason }}</mat-cell>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+            <mat-cell *matCellDef="let note">{{ note.date | date:'MM/dd/yyyy' }}</mat-cell>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+            <mat-cell *matCellDef="let note">
+              <button 
+                mat-icon-button 
+                color="primary" 
+                (click)="onViewDetails(note.documentNumber)"
+                matTooltip="View Details">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <!-- No Debit Notes Message -->
+        <div *ngIf="debitNotes.length === 0" class="no-data-message">
+          <mat-icon>description</mat-icon>
+          <p>No debit notes found</p>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

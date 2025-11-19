@@ -1,0 +1,329 @@
+.login-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* Decorative background circles */
+.login-wrapper::before {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.login-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 600px;
+  height: 600px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.content-container {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Brand Section */
+.brand-section {
+  flex: 1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px;
+}
+
+.brand-content {
+  flex: 1;
+}
+
+.company-logo {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 60px;
+  opacity: 0.95;
+  margin-top: 0;
+}
+
+.welcome-text {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+.welcome-description {
+  font-size: 16px;
+  line-height: 1.7;
+  opacity: 0.9;
+  max-width: 450px;
+  margin: 0;
+}
+
+.footer-text {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-top: 40px;
+}
+
+/* Form Card */
+.form-card {
+  flex: 0 0 440px;
+  background: white;
+  border-radius: 16px;
+  padding: 48px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.form-subtitle {
+  font-size: 13px;
+  color: #999;
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input::placeholder {
+  color: #ccc;
+}
+
+.form-input.error {
+  border-color: #f44336;
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+}
+
+.error-text {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  display: block;
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.remember-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  margin: 0;
+}
+
+.remember-checkbox input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.remember-checkbox span {
+  user-select: none;
+}
+
+.forgot-link {
+  font-size: 13px;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  border-left: 4px solid #f44336;
+}
+
+.login-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-button mat-spinner {
+  display: inline-block;
+}
+
+.toggle-mode {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+}
+
+.toggle-mode span {
+  margin-right: 6px;
+}
+
+.toggle-link {
+  background: none;
+  border: none;
+  color: #667eea;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: none;
+  padding: 0;
+}
+
+.toggle-link:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.toggle-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .content-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px 0;
+  }
+
+  .brand-section {
+    text-align: center;
+    min-height: auto;
+    padding: 0 20px;
+  }
+
+  /* Hide welcome text and description on mobile, keep only logo */
+  .welcome-text {
+    display: none;
+  }
+
+  .welcome-description {
+    display: none;
+  }
+
+  .footer-text {
+    display: none;
+  }
+
+  .company-logo {
+    margin-bottom: 20px;
+  }
+
+  .form-card {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 440px;
+    padding: 36px 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-wrapper {
+    padding: 15px;
+  }
+
+  .company-logo {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .form-card {
+    padding: 28px 24px;
+  }
+
+  .form-title {
+    font-size: 26px;
+  }
+}

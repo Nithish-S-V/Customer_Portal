@@ -1,0 +1,139 @@
+.sales-order-detail-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  min-height: 300px;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+.error-card {
+  margin-bottom: 20px;
+}
+
+.error-card mat-card-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #d32f2f;
+}
+
+.back-button-container {
+  margin-bottom: 20px;
+}
+
+.order-header-card {
+  margin-bottom: 20px;
+}
+
+.order-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-item label {
+  font-weight: 500;
+  color: #666;
+  font-size: 14px;
+}
+
+.info-item span {
+  font-size: 16px;
+  color: #333;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-open {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-in-process {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.status-completed {
+  background-color: #e8f5e8;
+  color: #388e3c;
+}
+
+.status-cancelled {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.line-items-card {
+  margin-bottom: 20px;
+}
+
+.no-items {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.line-items-table {
+  width: 100%;
+  min-width: 800px;
+}
+
+.line-items-table th {
+  font-weight: 600;
+  color: #333;
+}
+
+.line-items-table td {
+  padding: 12px 8px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sales-order-detail-container {
+    padding: 16px;
+  }
+  
+  .order-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .back-button-container {
+    margin-bottom: 16px;
+  }
+}

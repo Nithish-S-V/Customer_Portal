@@ -1,0 +1,124 @@
+<div class="aging-container">
+  <!-- Loading Spinner -->
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+    <p>Loading aging data...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage && !isLoading" class="error-container">
+    <p class="error-message">{{ errorMessage }}</p>
+    <button mat-button color="primary" (click)="retryLoad()">Retry</button>
+  </div>
+
+  <!-- Content: Summary + Details -->
+  <div *ngIf="!isLoading && !errorMessage">
+    
+    <!-- Part 1: Aging Summary Cards -->
+    <div class="summary-section">
+      <h2 class="section-title">Aging Summary</h2>
+      <div class="aging-summary" *ngIf="agingSummary">
+        <mat-card class="summary-card">
+          <mat-card-header>
+            <mat-card-title>0-30 Days Overdue</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="amount">{{ agingSummary.days0to30 | currency:agingSummary.currency }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="summary-card">
+          <mat-card-header>
+            <mat-card-title>31-60 Days Overdue</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="amount">{{ agingSummary.days31to60 | currency:agingSummary.currency }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="summary-card">
+          <mat-card-header>
+            <mat-card-title>61-90 Days Overdue</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="amount">{{ agingSummary.days61to90 | currency:agingSummary.currency }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="summary-card">
+          <mat-card-header>
+            <mat-card-title>91+ Days Overdue</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="amount">{{ agingSummary.days91Plus | currency:agingSummary.currency }}</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="summary-card total-card">
+          <mat-card-header>
+            <mat-card-title>Total Amount Due</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="amount total-amount">{{ agingSummary.totalOutstanding | currency:agingSummary.currency }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Part 2: Aging Detail Table -->
+    <div class="detail-section">
+      <h2 class="section-title">Open Item Details</h2>
+      
+      <div *ngIf="agingDetails.length === 0" class="no-data">
+        <p>No open items found.</p>
+      </div>
+
+      <mat-card *ngIf="agingDetails.length > 0" class="detail-card">
+        <mat-card-content>
+          <div class="table-container">
+            <table mat-table [dataSource]="agingDetails" class="aging-detail-table">
+              
+              <!-- Invoice Number Column -->
+              <ng-container matColumnDef="invoiceNumber">
+                <th mat-header-cell *matHeaderCellDef>Invoice Number</th>
+                <td mat-cell *matCellDef="let item">{{ item.invoiceNumber }}</td>
+              </ng-container>
+
+              <!-- Billing Date Column -->
+              <ng-container matColumnDef="billingDate">
+                <th mat-header-cell *matHeaderCellDef>Billing Date</th>
+                <td mat-cell *matCellDef="let item">{{ item.billingDate | date:'MM/dd/yyyy' }}</td>
+              </ng-container>
+
+              <!-- Due Date Column -->
+              <ng-container matColumnDef="dueDate">
+                <th mat-header-cell *matHeaderCellDef>Due Date</th>
+                <td mat-cell *matCellDef="let item">{{ item.dueDate | date:'MM/dd/yyyy' }}</td>
+              </ng-container>
+
+              <!-- Days Overdue Column -->
+              <ng-container matColumnDef="daysOverdue">
+                <th mat-header-cell *matHeaderCellDef>Days Overdue</th>
+                <td mat-cell *matCellDef="let item" [class.overdue]="item.daysOverdue > 0">
+                  {{ item.daysOverdue }}
+                </td>
+              </ng-container>
+
+              <!-- Amount Due Column -->
+              <ng-container matColumnDef="amountDue">
+                <th mat-header-cell *matHeaderCellDef>Amount Due</th>
+                <td mat-cell *matCellDef="let item" class="amount-cell">
+                  {{ item.amountDue | currency:item.currency }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

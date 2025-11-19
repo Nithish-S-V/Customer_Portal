@@ -1,0 +1,58 @@
+.inquiry-form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.inquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-spinner {
+  margin-right: 8px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+mat-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-header {
+  margin-bottom: 16px;
+}
+
+mat-card-actions {
+  padding: 16px 24px;
+}
+
+/* Success and error snackbar styles */
+:host ::ng-deep .success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+:host ::ng-deep .error-snackbar {
+  background-color: #f44336;
+  color: white;
+}

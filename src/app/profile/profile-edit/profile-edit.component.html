@@ -1,0 +1,104 @@
+<div class="profile-container">
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <mat-card-title>Edit Profile</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <!-- Loading spinner -->
+      @if (isLoading) {
+        <div class="loading-container">
+          <mat-spinner></mat-spinner>
+          <p>Loading profile...</p>
+        </div>
+      }
+
+      <!-- Error message -->
+      @if (errorMessage && !isLoading) {
+        <div class="error-container">
+          <mat-card class="error-card">
+            <mat-card-content>
+              <p class="error-message">{{ errorMessage }}</p>
+              <button mat-button color="primary" (click)="loadProfile()">Retry</button>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      }
+
+      <!-- Profile edit form -->
+      @if (customer && !isLoading) {
+        <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-form">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Customer ID</mat-label>
+              <input matInput formControlName="customerId" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Address Number</mat-label>
+              <input matInput formControlName="addressNumber" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field full-width">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field full-width">
+              <mat-label>Email *</mat-label>
+              <input matInput formControlName="email" type="email">
+              @if (profileForm.get('email')?.invalid && profileForm.get('email')?.touched) {
+                <mat-error>{{ getEmailErrorMessage() }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="country" readonly>
+            </mat-form-field>
+          </div>
+
+          <div class="form-note">
+            <p><em>* Only email can be edited (update feature not yet implemented in backend)</em></p>
+          </div>
+        </form>
+      }
+    </mat-card-content>
+
+    @if (customer && !isLoading) {
+      <mat-card-actions class="card-actions">
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="onSave()" 
+          [disabled]="profileForm.invalid || isSaving">
+          @if (isSaving) {
+            <mat-spinner diameter="20"></mat-spinner>
+          }
+          @if (!isSaving) {
+            <mat-icon>save</mat-icon>
+          }
+          {{ isSaving ? 'Saving...' : 'Save' }}
+        </button>
+        
+        <button 
+          mat-button 
+          (click)="onCancel()" 
+          [disabled]="isSaving">
+          Cancel
+        </button>
+      </mat-card-actions>
+    }
+  </mat-card>
+</div>

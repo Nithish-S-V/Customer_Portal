@@ -1,0 +1,16 @@
+.finance-sheet-container {
+  padding: 24px;
+}
+
+.finance-sheet-container h1 {
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.finance-tabs {
+  width: 100%;
+}
+
+.tab-content {
+  padding: 24px 0;
+}

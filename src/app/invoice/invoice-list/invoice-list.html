@@ -1,0 +1,97 @@
+<div class="invoice-list-container">
+  <h2>Invoice List</h2>
+
+  <!-- Search Input -->
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search by Document Number</mat-label>
+    <input matInput [(ngModel)]="searchText" (input)="onSearch()" placeholder="Enter document number">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading invoices...</p>
+  </div>
+
+  <!-- Error Message -->
+  <mat-card *ngIf="errorMessage && showRetry && !isLoading" class="error-card">
+    <mat-card-content>
+      <div class="error-content">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+      <button mat-button color="primary" (click)="onRetry()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Empty State -->
+  <mat-card *ngIf="!isLoading && !showRetry && filteredInvoices.length === 0" class="empty-state-card">
+    <mat-card-content>
+      <mat-icon class="empty-icon">receipt_long</mat-icon>
+      <h3>No Invoices Found</h3>
+      <p>No invoices found for your account.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Invoice Table -->
+  <div *ngIf="!isLoading && !showRetry && filteredInvoices.length > 0" class="table-container">
+    <table mat-table [dataSource]="filteredInvoices" class="invoice-table">
+
+      <!-- Document Number Column -->
+      <ng-container matColumnDef="documentNumber">
+        <th mat-header-cell *matHeaderCellDef>Document Number</th>
+        <td mat-cell *matCellDef="let invoice">{{ invoice.documentNumber }}</td>
+      </ng-container>
+
+      <!-- Item Number Column -->
+      <ng-container matColumnDef="itemNumber">
+        <th mat-header-cell *matHeaderCellDef>Item Number</th>
+        <td mat-cell *matCellDef="let invoice">{{ invoice.itemNumber }}</td>
+      </ng-container>
+
+      <!-- Billing Date Column -->
+      <ng-container matColumnDef="billingDate">
+        <th mat-header-cell *matHeaderCellDef>Billing Date</th>
+        <td mat-cell *matCellDef="let invoice">{{ invoice.billingDate | date: 'MM/dd/yyyy' }}</td>
+      </ng-container>
+
+      <!-- Net Value Column -->
+      <ng-container matColumnDef="netValue">
+        <th mat-header-cell *matHeaderCellDef>Net Value</th>
+        <td mat-cell *matCellDef="let invoice">{{ invoice.netValue | currency: invoice.currency }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let invoice" class="actions-cell">
+          <a mat-icon-button [routerLink]="['/invoice', invoice.documentNumber]" matTooltip="View Details">
+            <mat-icon>visibility</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="!isLoading && !showRetry && totalCount > pageSize" class="pagination-controls">
+    <button mat-button (click)="onPreviousPage()" [disabled]="!showPreviousButton()">
+      <mat-icon>chevron_left</mat-icon>
+      Previous
+    </button>
+    <span class="page-info">
+      Page {{ currentPage + 1 }} of {{ Math.ceil(totalCount / pageSize) }}
+    </span>
+    <button mat-button (click)="onNextPage()" [disabled]="!showNextButton()">
+      Next
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>
