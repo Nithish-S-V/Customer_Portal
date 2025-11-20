@@ -1,28 +1,14 @@
 <div class="login-wrapper" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
   <div class="content-container">
-    <!-- Left Section - Branding -->
-    <div class="brand-section">
-      <div class="brand-content">
-        <h1 class="company-logo">CUSTOMER PORTAL</h1>
-        <h2 class="welcome-text">Welcome to...</h2>
-        <p class="welcome-description">
-          Your gateway to seamless order management and tracking.
-          Access your orders, track shipments, and manage your account all in one place.
-        </p>
-      </div>
-      <div class="footer-text">
-        Secure and reliable platform
-      </div>
-    </div>
-
-    <!-- Right Section - Login Form Card -->
+    <!-- Centered Login Form Card -->
     <div class="form-card" #loginCard>
+      <div class="form-header">
+        <h1 class="main-title">Customer Portal. <span class="highlight">Elevated.</span></h1>
+        <p class="sub-title">Secure access to your business ecosystem.</p>
+      </div>
+
       <div class="form-container">
-        <h2 class="form-title">{{ isRegisterMode ? 'Sign Up' : 'Login' }}</h2>
-        <p class="form-subtitle">
-          {{ isRegisterMode ? 'Create your account to get started' : 'Welcome! Login to get amazing discounts and offers
-          only for you' }}
-        </p>
+        <h2 class="form-title">{{ isRegisterMode ? 'Create Account' : 'Welcome Back' }}</h2>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
@@ -54,7 +40,7 @@
               <input type="checkbox">
               <span>Remember me</span>
             </label>
-            <a href="#" class="forgot-link">Forgot your password?</a>
+            <a href="#" class="forgot-link">Forgot password?</a>
           </div>
           }
 
@@ -73,9 +59,9 @@
           </button>
 
           <div class="toggle-mode">
-            <span>{{ isRegisterMode ? 'Already have an account?' : 'New User?' }}</span>
+            <span>{{ isRegisterMode ? 'Already have an account?' : 'New to the portal?' }}</span>
             <button type="button" class="toggle-link" (click)="toggleMode()" [disabled]="isLoading">
-              {{ isRegisterMode ? 'Login' : 'Signup' }}
+              {{ isRegisterMode ? 'Login' : 'Create Account' }}
             </button>
           </div>
         </form>
