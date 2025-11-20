@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,6 +11,7 @@ import { AuthService, LoginResponse } from '../auth.service';
   standalone: false
 })
 export class LoginComponent {
+  @ViewChild('loginCard') loginCard!: ElementRef;
   loginForm: FormGroup;
   errorMessage: string = '';
   isLoading: boolean = false;
@@ -74,7 +75,7 @@ export class LoginComponent {
     // This is a simplified version - you may want to add more form fields
     const email = `${username}@example.com`; // Placeholder
     const name = username; // Placeholder
-    
+
     this.authService.register(username, password, email, name).subscribe({
       next: (response: any) => {
         this.isLoading = false;
@@ -101,5 +102,28 @@ export class LoginComponent {
     this.isRegisterMode = !this.isRegisterMode;
     this.errorMessage = '';
     this.loginForm.reset();
+  }
+
+  onMouseMove(event: MouseEvent): void {
+    if (!this.loginCard) return;
+
+    const card = this.loginCard.nativeElement;
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left - rect.width / 2;
+    const y = event.clientY - rect.top - rect.height / 2;
+
+    // Calculate rotation based on mouse position
+    // Max rotation 10 degrees
+    const rotateY = (x / (window.innerWidth / 2)) * 10;
+    const rotateX = -(y / (window.innerHeight / 2)) * 10;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  }
+
+  onMouseLeave(): void {
+    if (!this.loginCard) return;
+
+    // Reset transform
+    this.loginCard.nativeElement.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
   }
 }

@@ -1,4 +1,4 @@
-<div class="login-wrapper">
+<div class="login-wrapper" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
   <div class="content-container">
     <!-- Left Section - Branding -->
     <div class="brand-section">
@@ -6,7 +6,7 @@
         <h1 class="company-logo">CUSTOMER PORTAL</h1>
         <h2 class="welcome-text">Welcome to...</h2>
         <p class="welcome-description">
-          Your gateway to seamless order management and tracking. 
+          Your gateway to seamless order management and tracking.
           Access your orders, track shipments, and manage your account all in one place.
         </p>
       </div>
@@ -16,69 +16,59 @@
     </div>
 
     <!-- Right Section - Login Form Card -->
-    <div class="form-card">
+    <div class="form-card" #loginCard>
       <div class="form-container">
         <h2 class="form-title">{{ isRegisterMode ? 'Sign Up' : 'Login' }}</h2>
         <p class="form-subtitle">
-          {{ isRegisterMode ? 'Create your account to get started' : 'Welcome! Login to get amazing discounts and offers only for you' }}
+          {{ isRegisterMode ? 'Create your account to get started' : 'Welcome! Login to get amazing discounts and offers
+          only for you' }}
         </p>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label class="form-label">User Name</label>
-            <input 
-              class="form-input" 
-              formControlName="username" 
-              type="text" 
-              autocomplete="username"
+            <input class="form-input" formControlName="username" type="text" autocomplete="username"
               placeholder="Enter your username"
               [class.error]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
             @if (loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched) {
-              <span class="error-text">Username is required</span>
+            <span class="error-text">Username is required</span>
             }
           </div>
 
           <div class="form-group">
             <label class="form-label">Password</label>
-            <input 
-              class="form-input" 
-              formControlName="password" 
-              type="password" 
-              [autocomplete]="isRegisterMode ? 'new-password' : 'current-password'"
-              placeholder="Enter your password"
+            <input class="form-input" formControlName="password" type="password"
+              [autocomplete]="isRegisterMode ? 'new-password' : 'current-password'" placeholder="Enter your password"
               [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
             @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
-              <span class="error-text">Password is required</span>
+            <span class="error-text">Password is required</span>
             }
             @if (loginForm.get('password')?.hasError('minlength') && loginForm.get('password')?.touched) {
-              <span class="error-text">Password must be at least 6 characters</span>
+            <span class="error-text">Password must be at least 6 characters</span>
             }
           </div>
 
           @if (!isRegisterMode) {
-            <div class="remember-forgot">
-              <label class="remember-checkbox">
-                <input type="checkbox">
-                <span>Remember me</span>
-              </label>
-              <a href="#" class="forgot-link">Forgot your password?</a>
-            </div>
+          <div class="remember-forgot">
+            <label class="remember-checkbox">
+              <input type="checkbox">
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-link">Forgot your password?</a>
+          </div>
           }
 
           @if (errorMessage) {
-            <div class="error-message">
-              {{ errorMessage }}
-            </div>
+          <div class="error-message">
+            {{ errorMessage }}
+          </div>
           }
 
-          <button 
-            class="login-button" 
-            type="submit" 
-            [disabled]="loginForm.invalid || isLoading">
+          <button class="login-button" type="submit" [disabled]="loginForm.invalid || isLoading">
             @if (isLoading) {
-              <mat-spinner diameter="20"></mat-spinner>
+            <mat-spinner diameter="20"></mat-spinner>
             } @else {
-              {{ isRegisterMode ? 'SIGN UP' : 'LOGIN' }}
+            {{ isRegisterMode ? 'SIGN UP' : 'LOGIN' }}
             }
           </button>
 
