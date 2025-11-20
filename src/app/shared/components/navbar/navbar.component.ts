@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +17,9 @@ import { AuthService } from '../../../auth/auth.service';
   ]
 })
 export class NavbarComponent {
+  @Output() menuToggle = new EventEmitter<void>();
   username: string = '';
+  isMobile = window.innerWidth < 768;
 
   constructor(
     private authService: AuthService,
@@ -33,6 +35,10 @@ export class NavbarComponent {
         this.username = 'User';
       }
     }
+  }
+
+  onMenuToggle(): void {
+    this.menuToggle.emit();
   }
 
   onLogout(): void {

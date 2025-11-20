@@ -19,4 +19,10 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   ]
 })
 export class LayoutComponent {
+  isMobile = window.innerWidth < 768;
+  sidebarOpened = !this.isMobile;
+
+  toggleSidebar() {
+    this.sidebarOpened = !this.sidebarOpened;
+  }
 }

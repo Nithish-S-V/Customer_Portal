@@ -1,45 +1,116 @@
 .sidebar {
   width: 250px;
   height: 100%;
-  background-color: #fafafa;
-  border-right: 1px solid #e0e0e0;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   position: fixed;
   top: 64px;
   left: 0;
   bottom: 0;
   overflow-y: auto;
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  padding: 12px 16px;
-  color: rgba(0, 0, 0, 0.87);
+  padding: 14px 20px;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  position: relative;
+  margin: 4px 8px;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  border-left: 3px solid transparent;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #F3A712, #E4572E);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+  border-radius: 0 2px 2px 0;
 }
 
 .nav-link:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+  background: rgba(243, 167, 18, 0.1);
+  color: white;
+  transform: translateX(4px);
+}
+
+.nav-link:hover::before {
+  transform: scaleY(1);
 }
 
 .nav-link mat-icon {
   margin-right: 16px;
-  color: rgba(0, 0, 0, 0.54);
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover mat-icon {
+  color: #F3A712;
 }
 
 .nav-link.active-link {
-  background-color: rgba(63, 81, 181, 0.12);
-  color: #3f51b5;
-  border-left: 4px solid #3f51b5;
+  background: rgba(228, 87, 46, 0.15);
+  color: white;
+  border-left-color: #E4572E;
+  box-shadow: 0 4px 12px rgba(228, 87, 46, 0.2);
+}
+
+.nav-link.active-link::before {
+  transform: scaleY(1);
 }
 
 .nav-link.active-link mat-icon {
-  color: #3f51b5;
+  color: #E4572E;
 }
 
 .nav-link span {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
+  color: inherit;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .nav-link {
+    padding: 12px 16px;
+  }
+
+  .nav-link span {
+    font-size: 14px;
+  }
 }

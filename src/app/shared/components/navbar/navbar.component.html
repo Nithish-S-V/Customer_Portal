@@ -1,6 +1,9 @@
 <mat-toolbar color="primary" class="navbar">
   <div class="navbar-content">
     <div class="logo-section">
+      <button mat-icon-button class="menu-button" (click)="onMenuToggle()" *ngIf="isMobile">
+        <mat-icon>menu</mat-icon>
+      </button>
       <img src="assets/images/Kaar_Logo.png" alt="KaarTech Logo" class="logo-image" />
       <span class="logo-text">KaarTech</span>
     </div>
