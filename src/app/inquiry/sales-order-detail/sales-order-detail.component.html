@@ -43,12 +43,28 @@
             <span>{{ salesOrder.orderDate | date:'MM/dd/yyyy' }}</span>
           </div>
           <div class="info-item">
-            <label>Delivery Date:</label>
-            <span>{{ salesOrder.deliveryDate | date:'MM/dd/yyyy' }}</span>
+            <label>Document Type:</label>
+            <span>{{ salesOrder.documentType }}</span>
           </div>
           <div class="info-item">
-            <label>Total Amount:</label>
-            <span>{{ salesOrder.totalAmount | currency:'USD':'symbol':'1.2-2' }}</span>
+            <label>Product Code:</label>
+            <span>{{ salesOrder.productCode }}</span>
+          </div>
+          <div class="info-item">
+            <label>Product Description:</label>
+            <span>{{ salesOrder.productDescription }}</span>
+          </div>
+          <div class="info-item">
+            <label>Item Number:</label>
+            <span>{{ salesOrder.itemNumber }}</span>
+          </div>
+          <div class="info-item">
+            <label>Amount:</label>
+            <span>{{ salesOrder.amount | currency:salesOrder.currency }}</span>
+          </div>
+          <div class="info-item">
+            <label>Created By:</label>
+            <span>{{ salesOrder.createdBy }}</span>
           </div>
           <div class="info-item">
             <label>Status:</label>

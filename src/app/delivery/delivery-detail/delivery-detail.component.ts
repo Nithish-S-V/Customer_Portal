@@ -11,6 +11,7 @@ import { Delivery, DeliveryLineItem } from '../../shared/models/delivery.model';
 
 @Component({
   selector: 'app-delivery-detail',
+  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
@@ -20,7 +21,7 @@ import { Delivery, DeliveryLineItem } from '../../shared/models/delivery.model';
     MatProgressSpinnerModule
   ],
   templateUrl: './delivery-detail.component.html',
-  styleUrl: './delivery-detail.component.css'
+  styleUrls: ['./delivery-detail.component.css']
 })
 export class DeliveryDetailComponent implements OnInit {
   delivery: Delivery | null = null;

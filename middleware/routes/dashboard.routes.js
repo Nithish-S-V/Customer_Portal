@@ -116,6 +116,48 @@ router.get('/salesorders', authenticateToken, async (req, res) => {
 });
 
 /**
+ * GET /api/salesorders/:id
+ * Get specific sales order details from SAP
+ */
+router.get('/salesorders/:id', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.USER_ID;
+    const orderId = req.params.id;
+    console.log(`[DASHBOARD] Fetching sales order details for: ${orderId}, user: ${userId}`);
+
+    // Create XML payload for SAP sales orders service
+    const salesOrdersXml = sapSoapService.createSalesOrdersXml(userId);
+
+    // Call SAP service and filter for specific order
+    const sapResponse = await sapSoapService.callSapService('ZRFC_SALEORDERS_863', salesOrdersXml);
+    const salesOrders = parseSalesOrdersResponse(sapResponse);
+    
+    // Find the specific sales order
+    const salesOrder = salesOrders.find(o => o.orderNumber === orderId);
+
+    if (salesOrder) {
+      res.json({
+        success: true,
+        salesOrder: salesOrder,
+        message: 'Sales order details retrieved successfully.'
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        error: 'Sales order not found.'
+      });
+    }
+
+  } catch (error) {
+    console.error('[DASHBOARD] Error fetching sales order details from SAP:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch sales order details from SAP. Please try again later.'
+    });
+  }
+});
+
+/**
  * GET /api/deliveries
  * Get customer deliveries from SAP
  */
@@ -146,7 +188,47 @@ router.get('/deliveries', authenticateToken, async (req, res) => {
   }
 });
 
+/**
+ * GET /api/deliveries/:id
+ * Get specific delivery details from SAP
+ */
+router.get('/deliveries/:id', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.USER_ID;
+    const deliveryId = req.params.id;
+    console.log(`[DASHBOARD] Fetching delivery details for: ${deliveryId}, user: ${userId}`);
 
+    // Create XML payload for SAP deliveries service
+    const deliveriesXml = sapSoapService.createDeliveriesXml(userId);
+
+    // Call SAP service and filter for specific delivery
+    const sapResponse = await sapSoapService.callSapService('ZRFC_DELIVERY_LIST_863', deliveriesXml);
+    const deliveries = parseDeliveriesResponse(sapResponse);
+    
+    // Find the specific delivery
+    const delivery = deliveries.find(d => d.deliveryNumber === deliveryId);
+
+    if (delivery) {
+      res.json({
+        success: true,
+        delivery: delivery,
+        message: 'Delivery details retrieved successfully.'
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        error: 'Delivery not found.'
+      });
+    }
+
+  } catch (error) {
+    console.error('[DASHBOARD] Error fetching delivery details from SAP:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch delivery details from SAP. Please try again later.'
+    });
+  }
+});
 
 /**
  * Parse inquiries response from SAP
@@ -202,11 +284,11 @@ function parseSalesOrdersResponse(sapResponse) {
       const ordersArray = Array.isArray(items) ? items : [items];
       
       return ordersArray.map(order => ({
-        orderNumber: order.VBELN || '',
+        orderNumber: (order.VBELN || '').replace(/^0+/, ''),
         orderDate: order.ERDAT || '',
         createdBy: order.ERNAM || '',
         documentType: order.AUART || '',
-        productCode: order.MATNR || '',
+        productCode: (order.MATNR || '').replace(/^0+/, ''),
         productDescription: order.ARKTX || '',
         itemNumber: order.POSNR || '',
         amount: parseFloat(order.NETWR) || 0,
@@ -238,13 +320,13 @@ function parseDeliveriesResponse(sapResponse) {
       const deliveriesArray = Array.isArray(items) ? items : [items];
       
       return deliveriesArray.map(delivery => ({
-        deliveryNumber: delivery.VBELN || '',
-        customerNumber: delivery.KUNNR || '',
+        deliveryNumber: (delivery.VBELN || '').replace(/^0+/, ''),
+        customerNumber: (delivery.KUNNR || '').replace(/^0+/, ''),
         shippingPoint: delivery.VSTEL || '',
         createdBy: delivery.ERNAM || '',
         createdDate: delivery.ERDAT || '',
         itemNumber: delivery.POSNR || '',
-        productCode: delivery.MATNR || '',
+        productCode: (delivery.MATNR || '').replace(/^0+/, ''),
         productDescription: delivery.ARKTX || '',
         deliveryQuantity: parseFloat(delivery.LFIMG) || 0,
         unit: delivery.VRKME || '',

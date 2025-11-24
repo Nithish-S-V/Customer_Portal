@@ -65,13 +65,13 @@ export class InquiryService {
   }
 
   getSalesOrderList(): Observable<any[]> {
-    return this.apiService.get<SalesOrdersApiResponse>('/sales-orders').pipe(
+    return this.apiService.get<SalesOrdersApiResponse>('/salesorders').pipe(
       map(response => response.salesOrders || [])
     );
   }
 
   getSalesOrderDetails(orderId: string): Observable<any> {
-    return this.apiService.get<any>(`/sales-orders/${orderId}`).pipe(
+    return this.apiService.get<any>(`/salesorders/${orderId}`).pipe(
       map(response => response.salesOrder || response)
     );
   }

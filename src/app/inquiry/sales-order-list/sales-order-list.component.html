@@ -32,22 +32,28 @@
             <td mat-cell *matCellDef="let order">{{ order.orderNumber }}</td>
           </ng-container>
 
+          <!-- Product Code Column -->
+          <ng-container matColumnDef="productCode">
+            <th mat-header-cell *matHeaderCellDef>Product Code</th>
+            <td mat-cell *matCellDef="let order">{{ order.productCode }}</td>
+          </ng-container>
+
+          <!-- Product Description Column -->
+          <ng-container matColumnDef="productDescription">
+            <th mat-header-cell *matHeaderCellDef>Product Description</th>
+            <td mat-cell *matCellDef="let order">{{ order.productDescription }}</td>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let order">{{ order.amount | currency:order.currency }}</td>
+          </ng-container>
+
           <!-- Order Date Column -->
           <ng-container matColumnDef="orderDate">
             <th mat-header-cell *matHeaderCellDef>Order Date</th>
             <td mat-cell *matCellDef="let order">{{ order.orderDate | date:'MM/dd/yyyy' }}</td>
-          </ng-container>
-
-          <!-- Delivery Date Column -->
-          <ng-container matColumnDef="deliveryDate">
-            <th mat-header-cell *matHeaderCellDef>Delivery Date</th>
-            <td mat-cell *matCellDef="let order">{{ order.deliveryDate | date:'MM/dd/yyyy' }}</td>
-          </ng-container>
-
-          <!-- Total Amount Column -->
-          <ng-container matColumnDef="totalAmount">
-            <th mat-header-cell *matHeaderCellDef>Total Amount</th>
-            <td mat-cell *matCellDef="let order">{{ order.totalAmount | currency:'USD':'symbol':'1.2-2' }}</td>
           </ng-container>
 
           <!-- Status Column -->

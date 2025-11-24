@@ -42,22 +42,38 @@
             <span class="value">{{ delivery.deliveryNumber }}</span>
           </div>
           <div class="info-item">
-            <label>Sales Order Reference:</label>
-            <span class="value">{{ delivery.salesOrderReference }}</span>
+            <label>Customer Number:</label>
+            <span class="value">{{ delivery.customerNumber }}</span>
           </div>
           <div class="info-item">
-            <label>Delivery Date:</label>
-            <span class="value">{{ delivery.deliveryDate | date:'MM/dd/yyyy' }}</span>
+            <label>Product Code:</label>
+            <span class="value">{{ delivery.productCode }}</span>
+          </div>
+          <div class="info-item">
+            <label>Product Description:</label>
+            <span class="value">{{ delivery.productDescription }}</span>
+          </div>
+          <div class="info-item">
+            <label>Delivery Quantity:</label>
+            <span class="value">{{ delivery.deliveryQuantity }} {{ delivery.unit }}</span>
+          </div>
+          <div class="info-item">
+            <label>Shipping Point:</label>
+            <span class="value">{{ delivery.shippingPoint }}</span>
+          </div>
+          <div class="info-item">
+            <label>Created Date:</label>
+            <span class="value">{{ delivery.createdDate | date:'MM/dd/yyyy' }}</span>
+          </div>
+          <div class="info-item">
+            <label>Created By:</label>
+            <span class="value">{{ delivery.createdBy }}</span>
           </div>
           <div class="info-item">
             <label>Status:</label>
             <span class="value status-badge" [ngClass]="getStatusClass(delivery.status)">
               {{ delivery.status }}
             </span>
-          </div>
-          <div class="info-item">
-            <label>Tracking Number:</label>
-            <span class="value">{{ delivery.trackingNumber }}</span>
           </div>
         </div>
       </mat-card-content>

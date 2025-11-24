@@ -34,16 +34,28 @@
         <mat-cell *matCellDef="let delivery">{{ delivery.deliveryNumber }}</mat-cell>
       </ng-container>
 
-      <!-- Sales Order Column -->
-      <ng-container matColumnDef="salesOrderReference">
-        <mat-header-cell *matHeaderCellDef>Sales Order</mat-header-cell>
-        <mat-cell *matCellDef="let delivery">{{ delivery.salesOrderReference }}</mat-cell>
+      <!-- Product Code Column -->
+      <ng-container matColumnDef="productCode">
+        <mat-header-cell *matHeaderCellDef>Product Code</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.productCode }}</mat-cell>
       </ng-container>
 
-      <!-- Date Column -->
-      <ng-container matColumnDef="deliveryDate">
-        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
-        <mat-cell *matCellDef="let delivery">{{ delivery.deliveryDate | date:'MM/dd/yyyy' }}</mat-cell>
+      <!-- Product Description Column -->
+      <ng-container matColumnDef="productDescription">
+        <mat-header-cell *matHeaderCellDef>Product Description</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.productDescription }}</mat-cell>
+      </ng-container>
+
+      <!-- Delivery Quantity Column -->
+      <ng-container matColumnDef="deliveryQuantity">
+        <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.deliveryQuantity }} {{ delivery.unit }}</mat-cell>
+      </ng-container>
+
+      <!-- Created Date Column -->
+      <ng-container matColumnDef="createdDate">
+        <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.createdDate | date:'MM/dd/yyyy' }}</mat-cell>
       </ng-container>
 
       <!-- Status Column -->
@@ -52,12 +64,6 @@
         <mat-cell *matCellDef="let delivery">
           <span [class]="getStatusClass(delivery.status)">{{ delivery.status }}</span>
         </mat-cell>
-      </ng-container>
-
-      <!-- Tracking Number Column -->
-      <ng-container matColumnDef="trackingNumber">
-        <mat-header-cell *matHeaderCellDef>Tracking Number</mat-header-cell>
-        <mat-cell *matCellDef="let delivery">{{ delivery.trackingNumber }}</mat-cell>
       </ng-container>
 
       <!-- Actions Column -->

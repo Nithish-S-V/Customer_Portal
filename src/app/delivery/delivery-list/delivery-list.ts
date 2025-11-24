@@ -11,6 +11,7 @@ import { Delivery } from '../../shared/models/delivery.model';
 
 @Component({
   selector: 'app-delivery-list',
+  standalone: true,
   imports: [
     CommonModule,
     MatTableModule,
@@ -20,14 +21,14 @@ import { Delivery } from '../../shared/models/delivery.model';
     MatCardModule
   ],
   templateUrl: './delivery-list.html',
-  styleUrl: './delivery-list.css',
+  styleUrls: ['./delivery-list.css']
 })
 export class DeliveryListComponent implements OnInit {
   deliveries: Delivery[] = [];
   isLoading: boolean = false;
   errorMessage: string = '';
   showRetry: boolean = false;
-  displayedColumns: string[] = ['deliveryNumber', 'salesOrderReference', 'deliveryDate', 'status', 'trackingNumber', 'actions'];
+  displayedColumns: string[] = ['deliveryNumber', 'productCode', 'productDescription', 'deliveryQuantity', 'createdDate', 'status', 'actions'];
 
   constructor(
     private deliveryService: DeliveryService,
