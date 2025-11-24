@@ -1,16 +1,80 @@
 .finance-sheet-container {
   padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .finance-sheet-container h1 {
-  margin-bottom: 24px;
-  color: #333;
+  margin-bottom: 32px;
+  color: white;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.finance-tabs {
-  width: 100%;
+/* Custom Material Tabs Styling */
+::ng-deep .finance-tabs .mat-mdc-tab-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 24px;
+}
+
+::ng-deep .finance-tabs .mat-mdc-tab-label-container {
+  overflow: visible;
+}
+
+::ng-deep .finance-tabs .mat-mdc-tab {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  background: transparent !important;
+  transition: all 0.3s ease !important;
+  opacity: 1 !important;
+}
+
+::ng-deep .finance-tabs .mat-mdc-tab:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: white !important;
+}
+
+::ng-deep .finance-tabs .mat-mdc-tab.mdc-tab--active {
+  color: #F3A712 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 20px rgba(243, 167, 18, 0.4);
+}
+
+::ng-deep .finance-tabs .mat-mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-color: #E4572E !important;
+  border-top-width: 3px !important;
+  box-shadow: 0 0 10px #E4572E;
 }
 
 .tab-content {
-  padding: 24px 0;
+  padding: 0;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .finance-sheet-container {
+    padding: 16px;
+  }
+
+  .finance-sheet-container h1 {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
 }
