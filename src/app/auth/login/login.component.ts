@@ -29,6 +29,15 @@ export class LoginComponent {
     });
   }
 
+  // Getter methods to prevent ExpressionChangedAfterItHasBeenCheckedError
+  get username() {
+    return this.loginForm.get('username');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       // Mark all fields as touched to show validation errors
