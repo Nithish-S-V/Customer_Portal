@@ -1,131 +1,255 @@
 .delivery-detail-container {
-  padding: 20px;
-  max-width: 1200px;
+  padding: 24px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
+/* Loading Container */
 .loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 60px 40px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 4px;
-  min-height: 300px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 400px;
 }
 
 .loading-container p {
   margin-top: 16px;
-  color: #666;
-  font-size: 14px;
+  color: white;
+  font-size: 16px;
+  font-family: 'Outfit', sans-serif;
 }
 
+/* Error Card */
 .error-card {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  background: rgba(228, 87, 46, 0.1) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(228, 87, 46, 0.3) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(228, 87, 46, 0.2) !important;
 }
 
 .error-message {
-  color: #f44336;
+  color: #ffccbc;
   margin-bottom: 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
 }
 
+/* Action Buttons */
 .action-buttons {
   display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 .action-buttons button {
   display: flex;
   align-items: center;
   gap: 8px;
+  background: rgba(243, 167, 18, 0.1) !important;
+  color: #F3A712 !important;
+  border: 1px solid rgba(243, 167, 18, 0.3) !important;
+  border-radius: 12px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 500 !important;
+  padding: 12px 24px !important;
+  transition: all 0.3s ease;
+  box-shadow: none !important;
 }
 
-.delivery-header-card {
-  margin-bottom: 20px;
+.action-buttons button:hover {
+  background: rgba(243, 167, 18, 0.2) !important;
+  border-color: rgba(243, 167, 18, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(243, 167, 18, 0.3) !important;
+  transform: translateY(-2px);
 }
 
+.action-buttons button mat-icon {
+  color: #F3A712;
+}
+
+/* Cards */
+.delivery-header-card,
+.line-items-card {
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+.delivery-header-card:hover,
+.line-items-card:hover {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Card Headers */
+::ng-deep .delivery-header-card .mat-mdc-card-header,
+::ng-deep .line-items-card .mat-mdc-card-header {
+  padding: 24px 24px 16px;
+}
+
+::ng-deep .delivery-header-card .mat-mdc-card-title,
+::ng-deep .line-items-card .mat-mdc-card-title {
+  color: white !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  font-family: 'Outfit', sans-serif !important;
+  margin-bottom: 0 !important;
+}
+
+/* Card Content */
+::ng-deep .delivery-header-card .mat-mdc-card-content,
+::ng-deep .line-items-card .mat-mdc-card-content {
+  padding: 24px !important;
+}
+
+/* Delivery Info Grid */
 .delivery-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 8px;
 }
 
 .info-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(243, 167, 18, 0.2);
 }
 
 .info-item label {
   font-weight: 500;
-  color: #666;
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Outfit', sans-serif;
 }
 
 .info-item .value {
   font-size: 16px;
-  color: #333;
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
 }
 
+/* Status Badges */
 .status-badge {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 16px;
+  padding: 6px 12px;
+  border-radius: 20px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+  width: fit-content;
 }
 
 .status-planned {
-  background-color: #e3f2fd;
-  color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.2);
+  color: #64b5f6;
+  border: 1px solid rgba(100, 181, 246, 0.3);
 }
 
 .status-in-transit {
-  background-color: #fff3e0;
-  color: #f57c00;
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #ffb74d;
+  border: 1px solid rgba(255, 183, 77, 0.3);
 }
 
 .status-delivered {
-  background-color: #e8f5e8;
-  color: #388e3c;
+  background-color: rgba(56, 142, 60, 0.2);
+  color: #81c784;
+  border: 1px solid rgba(129, 199, 132, 0.3);
 }
 
 .status-cancelled {
-  background-color: #ffebee;
-  color: #d32f2f;
+  background-color: rgba(211, 47, 47, 0.2);
+  color: #e57373;
+  border: 1px solid rgba(229, 115, 115, 0.3);
 }
 
-.line-items-card {
-  margin-bottom: 20px;
-}
-
+/* Line Items Table */
 .line-items-table {
   width: 100%;
-  margin-top: 16px;
+  margin-top: 8px;
+  background: transparent;
 }
 
-.line-items-table th {
+::ng-deep .line-items-table .mat-mdc-header-cell {
   font-weight: 600;
-  color: #333;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  color: #F3A712 !important;
+  font-family: 'Outfit', sans-serif !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  padding: 16px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-.line-items-table td {
-  padding: 12px 8px;
+::ng-deep .line-items-table .mat-mdc-cell {
+  padding: 16px !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-family: 'Outfit', sans-serif !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  font-size: 14px;
 }
 
+::ng-deep .line-items-table .mat-mdc-row {
+  transition: all 0.3s ease;
+}
+
+::ng-deep .line-items-table .mat-mdc-row:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* No Items Message */
 .no-items-message {
   text-align: center;
-  color: #666;
+  color: rgba(255, 255, 255, 0.5);
   font-style: italic;
-  padding: 20px;
+  padding: 40px 20px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
 }
 
-/* Responsive design */
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .delivery-detail-container {
+    padding: 20px;
+  }
+
+  .delivery-info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .delivery-detail-container {
     padding: 16px;
@@ -133,14 +257,68 @@
 
   .delivery-info-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .action-buttons {
     flex-direction: column;
+    gap: 12px;
   }
 
   .action-buttons button {
     width: 100%;
     justify-content: center;
+  }
+
+  ::ng-deep .delivery-header-card .mat-mdc-card-title,
+  ::ng-deep .line-items-card .mat-mdc-card-title {
+    font-size: 20px !important;
+  }
+
+  ::ng-deep .delivery-header-card .mat-mdc-card-header,
+  ::ng-deep .line-items-card .mat-mdc-card-header {
+    padding: 20px 20px 12px;
+  }
+
+  ::ng-deep .delivery-header-card .mat-mdc-card-content,
+  ::ng-deep .line-items-card .mat-mdc-card-content {
+    padding: 20px !important;
+  }
+
+  .info-item {
+    padding: 12px;
+  }
+
+  ::ng-deep .line-items-table .mat-mdc-header-cell,
+  ::ng-deep .line-items-table .mat-mdc-cell {
+    padding: 12px 8px !important;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-container {
+    padding: 40px 20px;
+    min-height: 300px;
+  }
+
+  ::ng-deep .delivery-header-card .mat-mdc-card-title,
+  ::ng-deep .line-items-card .mat-mdc-card-title {
+    font-size: 18px !important;
+  }
+
+  .info-item .value {
+    font-size: 15px;
+  }
+
+  .action-buttons button {
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+
+  ::ng-deep .line-items-table .mat-mdc-header-cell,
+  ::ng-deep .line-items-table .mat-mdc-cell {
+    padding: 10px 6px !important;
+    font-size: 12px;
   }
 }

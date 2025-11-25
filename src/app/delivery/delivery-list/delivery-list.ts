@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
@@ -28,11 +28,12 @@ export class DeliveryListComponent implements OnInit {
   isLoading: boolean = false;
   errorMessage: string = '';
   showRetry: boolean = false;
-  displayedColumns: string[] = ['deliveryNumber', 'productCode', 'productDescription', 'deliveryQuantity', 'createdDate', 'status', 'actions'];
+  displayedColumns: string[] = ['deliveryNumber', 'productCode', 'productDescription', 'deliveryQuantity', 'createdDate', 'status'];
 
   constructor(
     private deliveryService: DeliveryService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -61,10 +62,6 @@ export class DeliveryListComponent implements OnInit {
 
   refresh(): void {
     this.loadDeliveries();
-  }
-
-  onViewDetails(deliveryNumber: string): void {
-    this.router.navigate(['/delivery', deliveryNumber]);
   }
 
   getStatusClass(status: string): string {

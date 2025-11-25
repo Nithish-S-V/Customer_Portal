@@ -20,13 +20,8 @@ export class FinanceSheetComponent implements AfterViewInit {
   private loadedTabs = new Set<number>();
 
   ngAfterViewInit() {
-    // Load the first tab (Invoice) automatically
-    setTimeout(() => {
-      if (this.invoiceListComponent && this.invoiceListComponent.loadInvoices) {
-        this.invoiceListComponent.loadInvoices();
-        this.loadedTabs.add(0);
-      }
-    });
+    // Mark first tab as loaded since InvoiceList loads automatically in ngOnInit
+    this.loadedTabs.add(0);
   }
 
   onTabChange(event: MatTabChangeEvent) {

@@ -13,23 +13,8 @@ html {
   bottom: 0;
   height: calc(100vh - 64px);
   display: flex;
-  background: linear-gradient(-45deg, #29335C, #1a2038, #669BBC, #29335C);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-}
-
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+  background: #1a2942;
+  /* Static dark blue with slight white tint - no gradient */
 }
 
 .sidenav {

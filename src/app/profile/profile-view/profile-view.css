@@ -1,51 +1,93 @@
 .profile-container {
-  padding: 20px;
-  max-width: 800px;
+  padding: 24px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
+/* Card Styling */
 .profile-card {
   width: 100%;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.3s ease;
 }
 
+.profile-card:hover {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Card Header */
+::ng-deep .profile-card .mat-mdc-card-header {
+  padding: 24px 24px 16px;
+}
+
+::ng-deep .profile-card .mat-mdc-card-title {
+  color: white !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  font-family: 'Outfit', sans-serif !important;
+  margin-bottom: 0 !important;
+}
+
+/* Card Content */
+::ng-deep .profile-card .mat-mdc-card-content {
+  padding: 24px !important;
+}
+
+/* Loading Container */
 .loading-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 4px;
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 300px;
 }
 
 .loading-container p {
   margin-top: 16px;
-  color: #666;
-  font-size: 14px;
+  color: white;
+  font-size: 16px;
+  font-family: 'Outfit', sans-serif;
 }
 
+/* Error Container */
 .error-container {
-  margin: 20px 0;
+  margin: 0 0 20px 0;
 }
 
 .error-card {
-  background-color: #ffebee;
-  border-left: 4px solid #f44336;
+  background: rgba(228, 87, 46, 0.1) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(228, 87, 46, 0.3) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(228, 87, 46, 0.2) !important;
 }
 
 .error-message {
-  color: #d32f2f;
+  color: #ffccbc;
   margin: 0 0 16px 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
 }
 
+/* Profile Form */
 .profile-form {
-  padding: 20px 0;
+  padding: 0;
 }
 
 .form-row {
   display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .form-field {
@@ -56,8 +98,32 @@
   width: 100%;
 }
 
+/* Form Fields */
+::ng-deep .profile-form .mat-mdc-text-field-wrapper {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+::ng-deep .profile-form .mat-mdc-input-element {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-family: 'Outfit', sans-serif;
+}
+
+::ng-deep .profile-form .mat-mdc-form-field-label {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-family: 'Outfit', sans-serif;
+}
+
+::ng-deep .profile-form .mat-mdc-input-element[readonly] {
+  color: rgba(255, 255, 255, 0.5) !important;
+  cursor: not-allowed;
+}
+
+/* Card Actions */
 .card-actions {
-  padding: 16px 24px;
+  padding: 16px 24px 24px;
   display: flex;
   justify-content: flex-end;
 }
@@ -66,20 +132,82 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  background: rgba(243, 167, 18, 0.15) !important;
+  color: #F3A712 !important;
+  border: 1px solid rgba(243, 167, 18, 0.3) !important;
+  border-radius: 12px !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(243, 167, 18, 0.2) !important;
 }
 
-/* Responsive design */
+.card-actions button:hover {
+  background: rgba(243, 167, 18, 0.25) !important;
+  border-color: rgba(243, 167, 18, 0.5) !important;
+  box-shadow: 0 6px 20px rgba(243, 167, 18, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+.card-actions button mat-icon {
+  color: #F3A712;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .profile-container {
-    padding: 10px;
+    padding: 16px;
   }
-  
+
+  ::ng-deep .profile-card .mat-mdc-card-header {
+    padding: 20px 20px 12px;
+  }
+
+  ::ng-deep .profile-card .mat-mdc-card-title {
+    font-size: 24px !important;
+  }
+
+  ::ng-deep .profile-card .mat-mdc-card-content {
+    padding: 20px !important;
+  }
+
   .form-row {
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
+    margin-bottom: 16px;
   }
-  
+
   .form-field {
     width: 100%;
+  }
+
+  .card-actions {
+    padding: 16px 20px 20px;
+  }
+
+  .card-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-container {
+    padding: 40px 20px;
+    min-height: 250px;
+  }
+
+  ::ng-deep .profile-card .mat-mdc-card-title {
+    font-size: 22px !important;
+  }
+
+  ::ng-deep .profile-card .mat-mdc-card-content {
+    padding: 16px !important;
+  }
+
+  .form-row {
+    gap: 14px;
+    margin-bottom: 14px;
   }
 }

@@ -19,7 +19,7 @@ export class SalesOrderListComponent implements OnInit {
   isLoading: boolean = false;
   errorMessage: string = '';
   showRetry: boolean = false;
-  displayedColumns: string[] = ['orderNumber', 'productCode', 'productDescription', 'amount', 'orderDate', 'status', 'actions'];
+  displayedColumns: string[] = ['orderNumber', 'productCode', 'productDescription', 'amount', 'orderDate', 'status'];
 
   constructor(
     private inquiryService: InquiryService,

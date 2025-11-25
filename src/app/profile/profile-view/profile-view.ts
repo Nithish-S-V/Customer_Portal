@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileService } from '../profile';
@@ -6,6 +6,7 @@ import { Customer } from '../../shared/models/customer.model';
 
 @Component({
   selector: 'app-profile-view',
+  standalone: true,
   imports: [SharedModule],
   templateUrl: './profile-view.html',
   styleUrl: './profile-view.css',
@@ -17,7 +18,8 @@ export class ProfileViewComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -30,10 +32,12 @@ export class ProfileViewComponent implements OnInit {
       next: (customer) => {
         this.customer = customer;
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         this.errorMessage = 'Failed to load profile. Please try again later.';
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error('Failed to load profile', error);
       }
     });

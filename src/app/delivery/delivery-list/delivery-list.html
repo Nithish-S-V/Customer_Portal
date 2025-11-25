@@ -66,16 +66,6 @@
         </mat-cell>
       </ng-container>
 
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-        <mat-cell *matCellDef="let delivery">
-          <button mat-button color="primary" (click)="onViewDetails(delivery.deliveryNumber)">
-            View Details
-          </button>
-        </mat-cell>
-      </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

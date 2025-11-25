@@ -3,6 +3,50 @@
   width: 100%;
 }
 
+/* Tab Styling */
+::ng-deep .credit-debit-list-container .mat-mdc-tab {
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #ffffff !important;
+  background: transparent !important;
+  transition: all 0.3s ease !important;
+  opacity: 0.7 !important;
+}
+
+::ng-deep .credit-debit-list-container .mat-mdc-tab:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  opacity: 1 !important;
+}
+
+::ng-deep .credit-debit-list-container .mat-mdc-tab.mdc-tab--active {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+::ng-deep .credit-debit-list-container .mat-mdc-tab .mdc-tab__text-label {
+  color: #ffffff !important;
+}
+
+::ng-deep .credit-debit-list-container .mat-mdc-tab-label-content {
+  color: #ffffff !important;
+}
+
+::ng-deep .credit-debit-list-container .mdc-tab__text-label {
+  color: #ffffff !important;
+}
+
+::ng-deep .credit-debit-list-container .mat-mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-color: #E4572E !important;
+  border-top-width: 3px !important;
+}
+
+::ng-deep .credit-debit-list-container .mat-mdc-tab-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 24px;
+}
+
 /* Loading Container */
 .loading-container {
   display: flex;

@@ -1,19 +1,39 @@
 <div class="overall-sales-container">
+  <h2>Overall Sales</h2>
+
   <!-- Loading Spinner -->
-  <div class="loading-container" *ngIf="isLoading">
+  <div *ngIf="isLoading" class="loading-container">
     <mat-spinner></mat-spinner>
     <p>Loading overall sales...</p>
   </div>
 
   <!-- Error Message -->
-  <div *ngIf="errorMessage && !isLoading" class="error-container">
-    <p class="error-message">{{ errorMessage }}</p>
-    <button mat-button color="primary" (click)="retryLoad()">Retry</button>
-  </div>
+  <mat-card *ngIf="errorMessage && !isLoading" class="error-card">
+    <mat-card-content>
+      <div class="error-content">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+      <button mat-button color="primary" (click)="retryLoad()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </mat-card-content>
+  </mat-card>
 
-  <!-- Data Table -->
-  <div *ngIf="!isLoading && !errorMessage">
-    <table mat-table [dataSource]="salesData" class="mat-elevation-z2">
+  <!-- Empty State -->
+  <mat-card *ngIf="!isLoading && !errorMessage && salesData.length === 0" class="empty-state-card">
+    <mat-card-content>
+      <mat-icon class="empty-icon">trending_up</mat-icon>
+      <h3>No Sales Data Found</h3>
+      <p>No sales data available for your account.</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Sales Table -->
+  <div *ngIf="!isLoading && !errorMessage && salesData.length > 0" class="table-container">
+    <table mat-table [dataSource]="salesData" class="sales-table">
+      
       <!-- Document Number Column -->
       <ng-container matColumnDef="documentNumber">
         <th mat-header-cell *matHeaderCellDef>Document Number</th>
@@ -23,7 +43,9 @@
       <!-- Record Type Column -->
       <ng-container matColumnDef="recordType">
         <th mat-header-cell *matHeaderCellDef>Record Type</th>
-        <td mat-cell *matCellDef="let sale">{{ sale.recordType }}</td>
+        <td mat-cell *matCellDef="let sale">
+          <span class="record-type-badge">{{ sale.recordType }}</span>
+        </td>
       </ng-container>
 
       <!-- Creation Date Column -->
@@ -41,15 +63,13 @@
       <!-- Net Value Column -->
       <ng-container matColumnDef="netValue">
         <th mat-header-cell *matHeaderCellDef>Net Value</th>
-        <td mat-cell *matCellDef="let sale">{{ sale.netValue | number: '1.2-2' }}</td>
+        <td mat-cell *matCellDef="let sale" class="net-value-cell">
+          {{ sale.netValue | currency: sale.currency || 'USD' }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-    <div *ngIf="salesData.length === 0" class="no-data">
-      <p>No sales data found.</p>
-    </div>
   </div>
 </div>

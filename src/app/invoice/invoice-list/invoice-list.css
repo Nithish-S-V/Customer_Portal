@@ -11,24 +11,67 @@ h2 {
 /* Search Field */
 .search-field {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   margin-bottom: 24px;
 }
 
-::ng-deep .search-field .mat-mdc-form-field-flex {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border-radius: 8px;
+::ng-deep .search-field .mat-mdc-text-field-wrapper {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+::ng-deep .search-field:hover .mat-mdc-text-field-wrapper {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(243, 167, 18, 0.3);
+  box-shadow: 0 4px 16px rgba(243, 167, 18, 0.1);
+}
+
+::ng-deep .search-field.mat-focused .mat-mdc-text-field-wrapper {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(243, 167, 18, 0.5);
+  box-shadow: 0 4px 20px rgba(243, 167, 18, 0.2);
+}
+
+::ng-deep .search-field .mat-mdc-form-field-flex {
+  background-color: transparent !important;
 }
 
 ::ng-deep .search-field .mat-mdc-input-element {
   color: white !important;
   font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  padding: 12px 16px;
 }
 
 ::ng-deep .search-field .mat-mdc-form-field-label {
   color: rgba(255, 255, 255, 0.6) !important;
   font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+}
+
+::ng-deep .search-field .mat-mdc-form-field-label.mat-focused {
+  color: rgba(243, 167, 18, 0.9) !important;
+}
+
+::ng-deep .search-field .mat-icon {
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+}
+
+::ng-deep .search-field:hover .mat-icon,
+::ng-deep .search-field.mat-focused .mat-icon {
+  color: #F3A712;
+}
+
+::ng-deep .search-field .mat-mdc-notch-piece {
+  border-color: transparent !important;
+}
+
+::ng-deep .search-field .mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
 }
 
 /* Table Styling */
@@ -170,6 +213,14 @@ h2 {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .search-field {
+    max-width: 100%;
+  }
+
+  ::ng-deep .search-field .mat-mdc-input-element {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
 
   .invoice-table th,
   .invoice-table td {
@@ -181,5 +232,20 @@ h2 {
     padding: 4px 8px;
     font-size: 11px;
     min-width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-field {
+    margin-bottom: 16px;
+  }
+
+  ::ng-deep .search-field .mat-mdc-input-element {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  ::ng-deep .search-field .mat-mdc-form-field-label {
+    font-size: 13px;
   }
 }

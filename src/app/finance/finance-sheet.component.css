@@ -27,21 +27,34 @@
   font-family: 'Outfit', sans-serif !important;
   font-size: 16px !important;
   font-weight: 500 !important;
-  color: rgba(255, 255, 255, 0.6) !important;
+  color: #ffffff !important;
   background: transparent !important;
   transition: all 0.3s ease !important;
-  opacity: 1 !important;
+  opacity: 0.7 !important;
 }
 
 ::ng-deep .finance-tabs .mat-mdc-tab:hover {
   background: rgba(255, 255, 255, 0.05) !important;
-  color: white !important;
+  opacity: 1 !important;
 }
 
 ::ng-deep .finance-tabs .mat-mdc-tab.mdc-tab--active {
-  color: #F3A712 !important;
+  color: #ffffff !important;
   font-weight: 700 !important;
-  text-shadow: 0 0 20px rgba(243, 167, 18, 0.4);
+  opacity: 1 !important;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+::ng-deep .finance-tabs .mat-mdc-tab .mdc-tab__text-label {
+  color: #ffffff !important;
+}
+
+::ng-deep .finance-tabs .mat-mdc-tab-label-content {
+  color: #ffffff !important;
+}
+
+::ng-deep .finance-tabs .mdc-tab__text-label {
+  color: #ffffff !important;
 }
 
 ::ng-deep .finance-tabs .mat-mdc-tab-indicator .mdc-tab-indicator__content--underline {
